@@ -102,7 +102,9 @@ def update_changelog(new: str, commits: list[str]) -> None:
 
 def set_version(new: str) -> None:
     py = PYPROJECT.read_text()
-    PYPROJECT.write_text(re.sub(r'^version = "[^"]+"', f'version = "{new}"', py, count=1, flags=re.M))
+    PYPROJECT.write_text(
+        re.sub(r'^version = "[^"]+"', f'version = "{new}"', py, count=1, flags=re.M)
+    )
     init = INIT.read_text()
     INIT.write_text(re.sub(r'__version__ = "[^"]+"', f'__version__ = "{new}"', init, count=1))
 

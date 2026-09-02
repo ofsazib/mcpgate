@@ -75,7 +75,7 @@ def format_sarif(findings: list[Finding], stream: TextIO | None = None) -> None:
                 "tool": {
                     "driver": {
                         "name": "mcpgate",
-                        "informationUri": "https://github.com/mcpgate/mcpgate",
+                        "informationUri": "https://github.com/ofsazib/mcpgate",
                         "rules": [
                             {
                                 "id": r.code,

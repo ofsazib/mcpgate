@@ -2,11 +2,11 @@
 
 > Automated quality gate for MCP servers — **ruff + pytest for MCP**.
 
-[![CI](https://github.com/mcpgate/mcpgate/actions/workflows/ci.yml/badge.svg)](https://github.com/mcpgate/mcpgate/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/mcpgate)](https://pypi.org/project/mcpgate/)
-[![Python](https://img.shields.io/pypi/pyversions/mcpgate)](https://pypi.org/project/mcpgate/)
+[![CI](https://github.com/ofsazib/mcpgate/actions/workflows/ci.yml/badge.svg)](https://github.com/ofsazib/mcpgate/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/mcpgate)](https://pypi.org/project/mcp-gate/)
+[![Python](https://img.shields.io/pypi/pyversions/mcpgate)](https://pypi.org/project/mcp-gate/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Coverage](https://codecov.io/gh/mcpgate/mcpgate/branch/main/graph/badge.svg)](https://codecov.io/gh/mcpgate/mcpgate)
+[![Coverage](https://codecov.io/gh/ofsazib/mcpgate/branch/main/graph/badge.svg)](https://codecov.io/gh/ofsazib/mcpgate)
 
 ## The problem
 
@@ -26,7 +26,7 @@ TypeScript servers — over stdio or HTTP.
 ## Quickstart
 
 ```bash
-uv tool install mcpgate    # or: pip install mcpgate
+uv tool install mcp-gate    # or: pip install mcpgate
 
 mcpgate lint "uvx mcp-server-fetch"
 mcpgate doctor "uvx mcp-server-fetch"
@@ -81,7 +81,7 @@ Filter with `--select MCP3xx --ignore MCP401`; inspect a rule with
 Install with the `test` extra, then contract-test your tools over the real protocol:
 
 ```bash
-pip install "mcpgate[test]"
+pip install "mcp-gate[test]"
 ```
 
 ```python

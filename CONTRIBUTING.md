@@ -5,7 +5,7 @@ Thanks for helping make MCP servers better for the agents that use them!
 ## Getting started
 
 ```bash
-git clone https://github.com/mcpgate/mcpgate
+git clone https://github.com/ofsazib/mcpgate
 cd mcpgate
 uv sync --all-extras     # install deps (dev + test extras)
 

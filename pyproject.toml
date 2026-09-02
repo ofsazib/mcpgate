@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "mcpgate"
+name = "mcp-gate"
 version = "0.1.0"
 description = "Automated quality gate for MCP servers — ruff + pytest for MCP."
 readme = "README.md"
@@ -40,9 +40,9 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mcpgate/mcpgate"
-Changelog = "https://github.com/mcpgate/mcpgate/blob/main/CHANGELOG.md"
-Issues = "https://github.com/mcpgate/mcpgate/issues"
+Homepage = "https://github.com/ofsazib/mcpgate"
+Changelog = "https://github.com/ofsazib/mcpgate/blob/main/CHANGELOG.md"
+Issues = "https://github.com/ofsazib/mcpgate/issues"
 
 [project.scripts]
 mcpgate = "mcpgate.cli:main"
