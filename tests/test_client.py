@@ -45,3 +45,26 @@ def test_snapshot_sync(good_server) -> None:
 async def test_snapshot_real_server() -> None:
     snap = await snapshot("uvx mcp-server-fetch")
     assert snap.server_name
+
+
+async def test_snapshot_skips_absent_capabilities() -> None:
+    """Servers without resources/prompts capabilities must snapshot cleanly."""
+    from mcp.server.lowlevel import Server
+    from mcp.types import Tool
+
+    srv = Server("minimal")
+
+    @srv.list_tools()
+    async def _list_tools() -> list[Tool]:
+        return [
+            Tool(
+                name="only_tool",
+                description="Returns the only tool this server has.",
+                inputSchema={"type": "object", "properties": {}},
+            )
+        ]
+
+    snap = await snapshot(srv)
+    assert [t.name for t in snap.tools] == ["only_tool"]
+    assert snap.resources == []
+    assert snap.prompts == []

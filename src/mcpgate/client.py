@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import shlex
 import time
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
 from typing import Any
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 from mcp.client.streamable_http import streamablehttp_client
+from mcp.shared.exceptions import McpError
 from mcp.shared.memory import create_connected_server_and_client_session
 
 from mcpgate.model import PromptInfo, ResourceInfo, ServerSnapshot, ToolInfo
@@ -19,6 +20,14 @@ from mcpgate.model import PromptInfo, ResourceInfo, ServerSnapshot, ToolInfo
 ServerObject = Any
 
 _HTTP_PREFIXES = ("http://", "https://")
+
+
+async def _maybe(call: Callable[[], Awaitable[Any]]) -> Any:
+    """Run a listing call; servers may omit a capability despite advertising it."""
+    try:
+        return await call()
+    except McpError:
+        return None
 
 
 @asynccontextmanager
@@ -52,9 +61,10 @@ async def snapshot(target: str | ServerObject) -> ServerSnapshot:
         init = await session.initialize()
         latency_ms = (time.perf_counter() - start) * 1000
 
-        tools_result = await session.list_tools()
-        resources_result = await session.list_resources()
-        prompts_result = await session.list_prompts()
+        caps = init.capabilities
+        tools_result = await _maybe(session.list_tools)
+        resources_result = await _maybe(session.list_resources) if caps.resources else None
+        prompts_result = await _maybe(session.list_prompts) if caps.prompts else None
 
         server_info = init.serverInfo
         capabilities = sorted(init.capabilities.model_dump(exclude_none=True, exclude_unset=True))
@@ -71,7 +81,7 @@ async def snapshot(target: str | ServerObject) -> ServerSnapshot:
                     input_schema=t.inputSchema,
                     output_schema=t.outputSchema,
                 )
-                for t in tools_result.tools
+                for t in (tools_result.tools if tools_result else [])
             ],
             resources=[
                 ResourceInfo(
@@ -80,7 +90,7 @@ async def snapshot(target: str | ServerObject) -> ServerSnapshot:
                     description=r.description or "",
                     mime_type=r.mimeType,
                 )
-                for r in resources_result.resources
+                for r in (resources_result.resources if resources_result else [])
             ],
             prompts=[
                 PromptInfo(
@@ -88,7 +98,7 @@ async def snapshot(target: str | ServerObject) -> ServerSnapshot:
                     description=p.description or "",
                     arguments=[a.name for a in p.arguments or []],
                 )
-                for p in prompts_result.prompts
+                for p in (prompts_result.prompts if prompts_result else [])
             ],
             latency_ms=round(latency_ms, 1),
         )

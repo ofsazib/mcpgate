@@ -8,7 +8,7 @@ import pytest
 from mcp.server.fastmcp import FastMCP
 from pydantic import Field
 
-pytest_plugins = ['pytester']
+pytest_plugins = ["pytester"]
 
 
 GOOD_ADD_DESCRIPTION = (
