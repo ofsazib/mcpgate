@@ -5,7 +5,11 @@ FastMCP always emits object-typed schemas, so MCP2xx violations are covered
 by hand-built snapshots in test_rules.py instead.
 """
 
+import logging
+
 from mcp.server.fastmcp import FastMCP
+
+logging.getLogger("mcp").setLevel(logging.WARNING)
 
 mcp = FastMCP("bad-server")
 
@@ -32,3 +36,6 @@ def _register() -> None:
 
 
 _register()
+
+if __name__ == "__main__":
+    mcp.run()

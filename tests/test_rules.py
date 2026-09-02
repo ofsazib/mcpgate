@@ -47,7 +47,7 @@ def snap(*tools: ToolInfo, **kw: Any) -> ServerSnapshot:
 def codes(snapshot: ServerSnapshot) -> set[str]:
     from mcpgate.rules.base import _REGISTRY
 
-    return {r.code for r in _REGISTRY.values() if (findings := r.check(snapshot))}
+    return {r.code for r in _REGISTRY.values() if r.check(snapshot)}
 
 
 def described_props(**specs: Any) -> dict[str, Any]:
@@ -117,7 +117,7 @@ class TestSchemas:
 
     def test_mcp203_fires_without_constraint_note(self) -> None:
         t = tool(
-            description="Add two integers together and gives the sum. Raises ValueError on bad input."
+            description="Adds two integers and gives the sum. Raises ValueError on bad input."
         )
         schema = dict(t.input_schema or {}, additionalProperties=False)
         assert "MCP203" in codes(snap(t.model_copy(update={"input_schema": schema})))

@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Annotated, Any
 
 import pytest
 from mcp.server.fastmcp import FastMCP
+from pydantic import Field
 
 GOOD_ADD_DESCRIPTION = (
-    "Add two integers together and return their sum. "
+    "Computes the sum of two integers and returns the result. "
     "Raises ValueError if either argument is not an integer."
 )
 
@@ -20,7 +21,10 @@ def _build_good_server() -> FastMCP:
     )
 
     @server.tool(description=GOOD_ADD_DESCRIPTION)
-    def add(a: int = 0, b: int = 0) -> int:
+    def add(
+        a: Annotated[int, Field(description="the first integer")] = 0,
+        b: Annotated[int, Field(description="the second integer")] = 0,
+    ) -> int:
         """Add two integers."""
         return a + b
 

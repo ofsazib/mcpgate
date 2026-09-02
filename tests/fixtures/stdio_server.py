@@ -1,6 +1,10 @@
 """Runnable stdio MCP server used to test the stdio transport path offline."""
 
+import logging
+
 from mcp.server.fastmcp import FastMCP
+
+logging.getLogger("mcp").setLevel(logging.WARNING)
 
 mcp = FastMCP("stdio-fixture")
 

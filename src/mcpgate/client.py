@@ -94,8 +94,14 @@ async def snapshot(target: str | ServerObject) -> ServerSnapshot:
         )
 
 
-def snapshot_sync(target: str | ServerObject) -> ServerSnapshot:
+def snapshot_sync(target: str | ServerObject, timeout: float | None = None) -> ServerSnapshot:
     """Synchronous wrapper around :func:`snapshot` (used by the pytest plugin)."""
     import anyio
 
-    return anyio.run(snapshot, target)
+    async def run() -> ServerSnapshot:
+        if timeout is None:
+            return await snapshot(target)
+        with anyio.fail_after(timeout):
+            return await snapshot(target)
+
+    return anyio.run(run)
