@@ -12,3 +12,12 @@ coverage.xml
 htmlcov/
 uv.lock.bak
 .DS_Store
+
+# AI/planning docs — local only
+PLAN.md
+IMPLEMENTATION_PLAN.md
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+.claude/
+copilot-instructions.md
