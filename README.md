@@ -127,5 +127,4 @@ Works in-memory for server objects (fully offline), stdio/HTTP for commands and 
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and the engineering contract in
-[AGENTS.md](AGENTS.md). MIT licensed — see [LICENSE](LICENSE).
+See [CONTRIBUTING.md](CONTRIBUTING.md). MIT licensed — see [LICENSE](LICENSE).
