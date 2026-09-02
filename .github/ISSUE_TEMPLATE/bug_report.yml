@@ -1,0 +1,29 @@
+name: Bug report
+description: Report a problem with mcpgate
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Include the exact `mcpgate` command and full output.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: mcpgate version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+    validations:
+      required: true
+  - type: textarea
+    id: server
+    attributes:
+      label: MCP server being linted
+      description: Command or URL. Redact anything private.
