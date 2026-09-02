@@ -116,9 +116,7 @@ class TestSchemas:
         assert "MCP202" not in codes(snap(tool(properties=props, required=["q"])))
 
     def test_mcp203_fires_without_constraint_note(self) -> None:
-        t = tool(
-            description="Adds two integers and gives the sum. Raises ValueError on bad input."
-        )
+        t = tool(description="Adds two integers and gives the sum. Raises ValueError on bad input.")
         schema = dict(t.input_schema or {}, additionalProperties=False)
         assert "MCP203" in codes(snap(t.model_copy(update={"input_schema": schema})))
 

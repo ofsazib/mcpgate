@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+pytest_plugins = ["pytester"]
+
 from typing import Annotated, Any
 
 import pytest
