@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-pytest_plugins = ["pytester"]
-
 from typing import Annotated, Any
 
 import pytest
 from mcp.server.fastmcp import FastMCP
 from pydantic import Field
+
+pytest_plugins = ['pytester']
+
 
 GOOD_ADD_DESCRIPTION = (
     "Computes the sum of two integers and returns the result. "

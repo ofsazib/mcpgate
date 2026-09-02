@@ -26,7 +26,9 @@ jobs:
       - name: Types
         run: uv run mypy src
       - name: Test
-        run: uv run pytest
+        run: |
+          uv run coverage run -m pytest
+          uv run coverage report
       - name: Build
         run: |
           uv build

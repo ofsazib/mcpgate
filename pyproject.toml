@@ -55,6 +55,7 @@ dev = [
   "ruff>=0.8",
   "mypy>=1.13",
   "pre-commit>=4.0",
+  "coverage[toml]>=7.6",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -74,11 +75,16 @@ python_version = "3.10"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 markers = [
   "network: requires network access and external MCP servers",
 ]
 testpaths = ["tests"]
-addopts = "-m 'not network' --cov=mcpgate --cov-report=term-missing"
+addopts = "-m 'not network'"
 
 [tool.coverage.run]
 source = ["src/mcpgate"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
