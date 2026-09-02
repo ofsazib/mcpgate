@@ -737,7 +737,7 @@ wheels = [
 ]
 
 [[package]]
-name = "mcp-gate"
+name = "mcp-gatekeeper"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
